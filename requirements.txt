@@ -1,0 +1,15 @@
+# Core Deps 
+pandas
+python-dotenv
+PyYAML
+loguru
+
+# Kafka
+kafka-python
+
+# MongoDB
+pymongo
+
+# Dev Tools
+jupyter
+ipykernel   
