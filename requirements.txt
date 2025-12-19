@@ -10,6 +10,6 @@ kafka-python
 # MongoDB
 pymongo
 
-# Dev Tools
+# Dev Toolsx
 jupyter
-ipykernel   
+ipykernel

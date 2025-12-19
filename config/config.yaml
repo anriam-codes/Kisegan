@@ -1,0 +1,27 @@
+api:
+  provider: tomorrow
+  base_url: "https://api.tomorrow.io/v4/weather/realtime"
+  api_key: ""
+
+city:
+  name: "Hyderabad"
+  lat: 17.3850
+  lon: 78.4867
+
+fields:
+  - temperature
+  - temperatureApparent
+  - temperatureMin
+  - temperatureMax
+  - humidity
+  - dewPoint
+  - pressureSurfaceLevel
+  - windSpeed
+  - windDirection
+  - windGust
+  - precipitationIntensity
+  - precipitationProbability
+  - rainAccumulation
+  - cloudCover
+  - visibility
+  - observationTime
