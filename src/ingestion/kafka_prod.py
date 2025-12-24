@@ -11,11 +11,9 @@ producer = KafkaProducer(
 )
 
 def publish():
-    events = fetch_all_locations()
-    for event in events:
+    for event in fetch_all_locations():
         producer.send(TOPIC, event)
     producer.flush()
 
 if __name__ == "__main__":
     publish()
-    

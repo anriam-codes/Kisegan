@@ -1,5 +1,6 @@
 import requests
 import yaml
+import time
 from pathlib import Path
 
 def load_config():
@@ -7,35 +8,51 @@ def load_config():
     with open(path, "r") as f:
         return yaml.safe_load(f)
 
-def fetch_weather_for_location(location, api_key, base_url, fields):
+def fetch_weather_for_location(location, api_key, base_url):
     params = {
-        "location": f"{location['lat']},{location['lon']}",
-        "apikey": api_key,
-        "fields": ",".join(fields),
+        "lat": location["lat"],
+        "lon": location["lon"],
+        "appid": api_key,
         "units": "metric"
     }
+
     response = requests.get(base_url, params=params)
     response.raise_for_status()
-
     data = response.json()
-    data["location"]["name"] = location["name"]  # attach area name
-    return data  # RAW JSON
+
+    return {
+        "location": {
+            "name": location["name"],
+            "lat": location["lat"],
+            "lon": location["lon"]
+        },
+        "data": {
+            "observationTime": data.get("dt"),
+            "temperature": data["main"].get("temp"),
+            "temperatureMin": data["main"].get("temp_min"),
+            "temperatureMax": data["main"].get("temp_max"),
+            "humidity": data["main"].get("humidity"),
+            "pressureSurfaceLevel": data["main"].get("pressure"),
+            "windSpeed": data["wind"].get("speed"),
+            "windDirection": data["wind"].get("deg"),
+            "cloudCover": data["clouds"].get("all"),
+            "visibility": data.get("visibility")
+        }
+    }
 
 def fetch_all_locations():
     config = load_config()
     api_key = config["api"]["api_key"]
     base_url = config["api"]["base_url"]
     locations = config["locations"]
-    fields = config["fields"]
 
     events = []
     for loc in locations:
-        event = fetch_weather_for_location(loc, api_key, base_url, fields)
-        events.append(event)
+        events.append(fetch_weather_for_location(loc, api_key, base_url))
+        time.sleep(3)  # rate-limit safety
 
     return events
 
 if __name__ == "__main__":
-    events = fetch_all_locations()
-    for e in events:
+    for e in fetch_all_locations():
         print(e)

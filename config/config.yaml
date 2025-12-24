@@ -1,6 +1,7 @@
 api:
-  api_key: "YYYtxMp7ykO4rxJwZsAVQcT4fMZW1DPj"
-  base_url: "https://api.tomorrow.io/v4/weather/realtime"
+  provider: openweather
+  api_key: "eca22fd2abaab55bfb93970011efc723"
+  base_url: "https://api.openweathermap.org/data/2.5/weather"
 
 locations:
   - name: New_York_City
