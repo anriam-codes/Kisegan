@@ -1,15 +1,18 @@
-# Core Deps 
-pandas
-python-dotenv
-PyYAML
-loguru
+# Core
+pandas==2.1.4
+python-dotenv==1.0.1
+PyYAML==6.0.1
+loguru==0.7.2
+
+# Apache Spark
+pyspark==3.4.1
 
 # Kafka
-kafka-python
+kafka-python==2.0.2
 
 # MongoDB
-pymongo
+pymongo==4.6.1
 
-# Dev Toolsx
-jupyter
-ipykernel
+# Dev Tools
+jupyter==1.0.0
+ipykernel==6.29.4
