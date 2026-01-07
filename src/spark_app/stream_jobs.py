@@ -1,7 +1,7 @@
 from pyspark.sql import functions as F
 
-from spark_app.spark_session import get_spark_session
-from spark_app.transform import transform_weather_stream
+from .spark_session import get_spark_session
+from .transform import transform_weather_stream
 
 
 def start_weather_stream():

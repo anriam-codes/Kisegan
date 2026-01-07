@@ -1,7 +1,7 @@
 from pyspark.sql import functions as F
 from pyspark.sql.types import TimestampType
 
-from spark_app.schemas import raw_weather_schema
+from .schemas import raw_weather_schema
 
 
 def transform_weather_stream(kafka_df):
