@@ -1,6 +1,5 @@
 from pyspark.sql import SparkSession
 
-
 def get_spark_session(app_name: str = "Kisegan-Weather-Stream"):
     spark = (
         SparkSession.builder
