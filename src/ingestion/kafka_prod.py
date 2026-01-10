@@ -7,6 +7,7 @@ TOPIC = "weather_raw"
 
 producer = KafkaProducer(
     bootstrap_servers=KAFKA_BROKER,
+    api_version=(3, 5, 0),  # <<< REQUIRED on Windows
     value_serializer=lambda v: json.dumps(v).encode("utf-8")
 )
 

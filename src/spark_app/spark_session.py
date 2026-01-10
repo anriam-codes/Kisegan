@@ -18,12 +18,11 @@ def get_spark_session(app_name: str = "Kisegan-Weather-Stream"):
         )
 
         # Time handling
-        .config("spark.sql.session.timeZone", "UTC")
+        .config("spark.sql.session.timeZone", "UTC")    
 
         # Windows fixes
         .config("spark.hadoop.io.native.lib.available", "false")
-        .config("spark.local.dir", "C:/spark-temp")
-
+        .config("spark.local.dir", "/tmp/spark-temp")
         .getOrCreate()
     )
 
