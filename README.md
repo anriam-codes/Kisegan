@@ -1,7 +1,8 @@
 Hellos from Kisegan
 Umm youo see..
 Work Under progress..
-Errors btw huh very annoyin bruh.
 
 
-Brb tho
+Ingestion and Spark procesing working cool
+
+also mb for the bad read me huh will css-ize it at once later haha
