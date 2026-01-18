@@ -1,0 +1,4 @@
+mongo:
+  uri: "mongodb://mongodb:27017"
+  database: "kisegan"
+  collection: "weather_cleaned"

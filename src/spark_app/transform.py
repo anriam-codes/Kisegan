@@ -1,6 +1,12 @@
 from pyspark.sql import functions as F
 from spark_app.schemas import raw_weather_schema
 
+# NOTE:
+# Units are assumed to be standardized from source:
+# temperature: Celsius
+# wind_speed: m/s
+# pressure: hPa
+# Explicit unit conversion will be handled in analytics layer
 
 def transform_weather_stream(kafka_df):
     # 1. Kafka value (binary) → string

@@ -5,24 +5,22 @@ def get_spark_session(app_name: str = "Kisegan-Weather-Stream"):
         SparkSession.builder
         .appName(app_name)
 
-        # Kafka (version must match Spark 3.4.x)
+        # ADD THIS (this was missing)
+        # MongoDB connection
         .config(
-            "spark.jars.packages",
-            "org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.1"
+            "spark.mongodb.read.connection.uri",
+            "mongodb://mongodb:27017/weather"
         )
-
-        # MongoDB
         .config(
             "spark.mongodb.write.connection.uri",
-            "mongodb://localhost:27017/kisegan"
+            "mongodb://mongodb:27017/weather"
         )
 
-        # Time handling
-        .config("spark.sql.session.timeZone", "UTC")    
-
-        # Windows fixes
-        .config("spark.hadoop.io.native.lib.available", "false")
+        # Stability configs
+        .config("spark.sql.session.timeZone", "UTC")
+        .config("spark.sql.adaptive.enabled", "false")
         .config("spark.local.dir", "/tmp/spark-temp")
+
         .getOrCreate()
     )
 
