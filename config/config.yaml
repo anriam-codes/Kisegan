@@ -96,19 +96,17 @@ locations:
     lon: -94.5786
 
 fields:
-  - temperature
-  - temperatureApparent
+  - temperatureparent
   - temperatureMin
   - temperatureMax
   - humidity
-  - dewPoint
   - pressureSurfaceLevel
   - windSpeed
   - windDirection
   - windGust
   - precipitationIntensity
-  - precipitationProbability
   - rainAccumulation
   - cloudCover
   - visibility
   - observationTime
+  - temperatureAp

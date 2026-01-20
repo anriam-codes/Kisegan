@@ -21,24 +21,38 @@ def fetch_weather_for_location(location, api_key, base_url):
     data = response.json()
 
     return {
-        "location": {
-            "name": location["name"],
-            "lat": location["lat"],
-            "lon": location["lon"]
-        },
-        "data": {
-            "observationTime": data.get("dt"),
-            "temperature": data["main"].get("temp"),
-            "temperatureMin": data["main"].get("temp_min"),
-            "temperatureMax": data["main"].get("temp_max"),
-            "humidity": data["main"].get("humidity"),
-            "pressureSurfaceLevel": data["main"].get("pressure"),
-            "windSpeed": data["wind"].get("speed"),
-            "windDirection": data["wind"].get("deg"),
-            "cloudCover": data["clouds"].get("all"),
-            "visibility": data.get("visibility")
-        }
+    "location": {
+        "name": location["name"],
+        "lat": location["lat"],
+        "lon": location["lon"]
+    },
+    "data": {
+        "observationTime": data.get("dt"),
+
+        "temperature": data["main"].get("temp"),
+        "temperatureApparent": data["main"].get("feels_like"),
+        "temperatureMin": data["main"].get("temp_min"),
+        "temperatureMax": data["main"].get("temp_max"),
+        "humidity": data["main"].get("humidity"),
+        "pressureSurfaceLevel": data["main"].get("pressure"),
+
+        "windSpeed": data["wind"].get("speed"),
+        "windDirection": data["wind"].get("deg"),
+        "windGust": data["wind"].get("gust"),
+
+        "precipitationIntensity": (
+            data.get("rain", {}).get("1h")
+            or data.get("rain", {}).get("3h")
+        ),
+        "rainAccumulation": (
+            data.get("rain", {}).get("1h")
+            or data.get("rain", {}).get("3h")
+        ),
+
+        "cloudCover": data.get("clouds", {}).get("all"),
+        "visibility": data.get("visibility")
     }
+}
 
 def fetch_all_locations():
     config = load_config()
