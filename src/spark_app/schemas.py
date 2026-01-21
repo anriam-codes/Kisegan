@@ -12,13 +12,22 @@ raw_weather_schema = StructType([
 
     StructField("data", StructType([
         StructField("observationTime", LongType(), True),
+
         StructField("temperature", DoubleType(), True),
+        StructField("temperatureApparent", DoubleType(), True),
         StructField("temperatureMin", DoubleType(), True),
         StructField("temperatureMax", DoubleType(), True),
+
         StructField("humidity", IntegerType(), True),
         StructField("pressureSurfaceLevel", IntegerType(), True),
+
         StructField("windSpeed", DoubleType(), True),
         StructField("windDirection", IntegerType(), True),
+        StructField("windGust", DoubleType(), True),
+
+        StructField("precipitationIntensity", DoubleType(), True),
+        StructField("rainAccumulation", DoubleType(), True),
+
         StructField("cloudCover", IntegerType(), True),
         StructField("visibility", IntegerType(), True),
     ]), True)
