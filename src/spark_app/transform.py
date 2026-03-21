@@ -46,7 +46,7 @@ def transform_weather_stream(kafka_df):
 
         # UNIX seconds → timestamp
         F.to_timestamp(F.from_unixtime(F.col("data.observationTime"))).alias("event_time"),
-        F.current_timestamp().alias("ingestion_time")
+        F.from_utc_timestamp(F.current_timestamp(), "Asia/Kolkata").alias("ingestion_time")
     )
 
     # 4. Minimal row validity check
