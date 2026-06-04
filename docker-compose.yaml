@@ -34,6 +34,7 @@ services:
     container_name: spark
     depends_on:
       - kafka
+      - minio
     volumes:
       - ./src:/app/src
       - ./config:/app/config
@@ -44,3 +45,19 @@ services:
       spark-submit
       --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.1
       src/spark_app/stream_jobs.py
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+
+volumes:
+  minio_data:

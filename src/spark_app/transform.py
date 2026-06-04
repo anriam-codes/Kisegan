@@ -45,8 +45,14 @@ def transform_weather_stream(kafka_df):
         F.col("data.visibility").alias("visibility_m"),
 
         # UNIX seconds → timestamp
-        F.to_timestamp(F.from_unixtime(F.col("data.observationTime"))).alias("event_time"),
-        F.from_utc_timestamp(F.current_timestamp(), "Asia/Kolkata").alias("ingestion_time")
+        F.to_timestamp(
+            F.from_unixtime(F.col("data.observationTime"))
+        ).alias("event_time"),
+
+        F.from_utc_timestamp(
+            F.current_timestamp(),
+            "Asia/Kolkata"
+        ).alias("ingestion_time")
     )
 
     # 4. Minimal row validity check
@@ -54,4 +60,39 @@ def transform_weather_stream(kafka_df):
         subset=["city", "temperature_c", "event_time"]
     )
 
-    return cleaned_df
+    # 5. Data quality validation checks
+    validated_df = cleaned_df.filter(
+        (F.col("temperature_c").between(-50, 60)) &
+        (F.col("humidity_pct").between(0, 100)) &
+        (F.col("pressure_hpa").between(800, 1200)) &
+        (F.col("wind_speed_ms").between(0, 150))
+    )
+
+    # 6. Lightweight feature engineering
+    featured_df = (
+        validated_df
+        .withColumn(
+            "heat_index",
+            F.col("temperature_c")
+            + 0.33 * F.col("humidity_pct")
+            - 0.7 * F.col("wind_speed_ms")
+            - 4
+        )
+        .withColumn(
+            "avg_temp",
+            F.col("temperature_c")
+        )
+        .withColumn(
+            "event_id",
+            F.concat_ws(
+                "_",
+                F.col("city"),
+                F.date_format(
+                    F.from_utc_timestamp(F.col("event_time"), "Asia/Kolkata"),
+                    "yyyy-MM-dd'T'HH:mm:ssXXX"
+                )
+            )
+        )
+    )
+
+    return featured_df
