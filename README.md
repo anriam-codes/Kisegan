@@ -1,4 +1,4 @@
-![Profile Picture](assets/kiset.png)
+![Profile Picture](assets/kisan.png)
 
 A real-time weather pipeline that ingests weather observations, processes them with Apache Kafka and PySpark Structured Streaming, and stores cleaned records as partitioned Parquet files in MinIO.
 
