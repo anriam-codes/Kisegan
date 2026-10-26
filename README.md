@@ -1,7 +1,13 @@
-Djyelloww
+Hellos from Kisegan
 
-Kisegan is now breathing
 
-Kafka → Spark → Parquet → MinIO 
+Umm you see... 
+uhh work Under progress haha
 
-Dish served
+
+retained spark layer and ingestion was there anyway
+
+quite revamps otw huh
+
+
+but Brb tho
